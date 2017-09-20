@@ -61,9 +61,13 @@ public void run()
       OutputStream os = socket.getOutputStream();
       
       String contentc = readHTTPRequest(is);
-       
+       System.out.println("hi"); 
       writeHTTPHeader(os,filething);
+      System.out.println("hi again"); 
+
       writeContent(os, contentc, j);
+      System.out.println("hi the sequal"); 
+
       os.flush();
       socket.close();
    } catch (Exception e) {
@@ -233,18 +237,26 @@ private String readhtml(String html) {
 **/
 private String readHTTPRequest(InputStream is)
 {
-   String line;
+   String line ;
    String contentb = "";
    
    BufferedReader r = new BufferedReader(new InputStreamReader(is));
   
-  
+   //String[] arr = null;
+   
+	//String html = null;
+   
    try {
+
     line = r.readLine();
     String y = line;
-    String[] arr = y.split(" ");
+    	String[] arr = y.split(" "); //String[] arr = y.split(" ");
     
-    String html = "."+arr[1];
+    	String html = "."+arr[1]; //String html = "."+arr[1];
+    	System.out.println("1"+html);
+    
+    
+  
     
     
   if (html.contains(".html")){
@@ -265,11 +277,19 @@ private String readHTTPRequest(InputStream is)
              readpic(html);
              }//end else if
              
-          else if (html.contains(".jpeg")){
-             filething = "image/jpeg";
+          else if (html.contains(".jpg")){
+             filething = "image/jpg";
             readpic(html);
              }//end else if
+    
+  
+          else if (html.contains(".ico")){
+              filething = "image/x-icon";
+             readpic(html);
+              }//end else if
+  
 
+   
 
     
     
@@ -314,6 +334,7 @@ private String readHTTPRequest(InputStream is)
 **/
 private void writeHTTPHeader(OutputStream os, String contentType) throws Exception
 {
+	System.out.println("contenttype= " + contentType);
    Date d = new Date();
    DateFormat df = DateFormat.getDateTimeInstance();
    df.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -338,16 +359,20 @@ private void writeHTTPHeader(OutputStream os, String contentType) throws Excepti
 **/
 private void writeContent(OutputStream os, String s, byte[] b) throws Exception
 {
- 
-   os.write("<html><head></head><body>\n".getBytes());
-   os.write("<h3>My web server works!</h3>\n".getBytes());
+   System.out.println(filething);
+   //os.write("<html><head></head><body>\n".getBytes());
+   //os.write("<h3>My web server works!</h3>\n".getBytes());
   
    
-   os.write("</body></html>\n".getBytes());
+   //os.write("</body></html>\n".getBytes());
    if(filething.equals("text/html"))
    os.write(s.getBytes());
+   else if(filething.equals(""))
+   os.write("404".getBytes());
    else
    os.write(b); 
+   
+   
 
 }
 

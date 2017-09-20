@@ -1,5 +1,25 @@
-<project default = "compile">
-   <target name = "compile" javac srcdir="." includeantruntime="false fork ="true">
-</target>
-</project> 
+<project default = "run"> 
 
+  <target name = "compile">
+       
+      <javac srcdir = "." includeantruntime = "false" fork = "true" > 
+
+</javac>
+    </target> 
+
+<target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/WebServer.jar" basedir=".">
+            <manifest>
+                <attribute name="Main-Class" value="WebServer"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends= "jar">
+        <java jar="build/jar/WebServer.jar" fork="true"/>
+    </target>
+
+          
+
+</project>

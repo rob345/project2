@@ -1,4 +1,4 @@
-/**
+/*
 * A simple web server: it creates a new WebWorker for each new client
 * connection, so all the WebServer object does is listen on the port
 * for incoming client connection requests.
@@ -75,7 +75,7 @@ private boolean stop()
 **/
 public static void main(String args[])
 {
-   int port = 8082;
+   int port = 8080;
    if (args.length > 1) {
       System.err.println("Usage: java Webserver <portNumber>");
       return;
@@ -94,4 +94,3 @@ public static void main(String args[])
 } // end main
 
 } // end class
-
